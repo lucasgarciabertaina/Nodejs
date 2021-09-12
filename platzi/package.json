@@ -1,0 +1,24 @@
+{
+  "name": "platzi",
+  "version": "0.1.0",
+  "description": "Un chat como telegram pero mejor",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js"
+  },
+  "keywords": [
+    "chat",
+    "telegram",
+    "server"
+  ],
+  "author": "Lucas Garcia",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1"
+  }
+}
