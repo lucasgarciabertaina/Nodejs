@@ -6,9 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Router
-app.use(require("./routes/routes.index"));
+// Routes
+app.use(require("./routes/route.users"));
+app.use(require("./routes/route.accounts"));
+app.use(require("./routes/route.activities"));
 
-app.listen(5000, () => {
-  console.log("Server listening on port 5000...");
+app.listen(4500, () => {
+  console.log("Server listening on port 4500...");
 });
