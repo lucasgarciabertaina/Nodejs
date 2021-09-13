@@ -1,7 +1,11 @@
 const { Router } = require("express");
 const router = Router();
 
+// PostgreSQL query
 const pool = require("../databases/db");
+
+// Response request
+const { success, error } = require('../network/response')
 
 const {
   postUser,
@@ -13,51 +17,37 @@ const {
   getAccount,
   getActivities,
   getActivity,
+  putUser,
+  putAccount,
+  putActivity,
+  deleteUser,
+  deleteAccount,
+  deleteActivity
 } = require("../controllers/countroller.index");
-
-// Post User
+ 
+// User Routes
 
 router.post("/user", async (req, res) => {
-  try {
-    postUser(req, res);
-  } catch (err) {
-    console.error(err.message);
-  }
+    await postUser(req, res)
+      .then((userData) => {
+        success(req, res, userData, 200)
+      })
+      .catch((userError) => {
+        error(req, res, userError, 400, 'There isnt any data')
+      })
 });
-
-// Post Account
-
-router.post("/account", async (req, res) => {
-  try {
-    postAccount(req, res);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-// Post Do
-
-router.post("/todo", async (req, res) => {
-  try {
-    postActivity(req, res);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-// Get all users
 
 router.get("/users", async (req, res) => {
-  try {
-    getUsers(req, res);
-  } catch (err) {
-    console.error(err);
-  }
+  await getUsers(req, res)
+  .then((userData) => {
+    success(req, res, userData, 200)
+  })
+  .catch((userError) => {
+    error(req, res, userError, 400, 'There isnt any data')
+  })
 });
 
-// Get a user
-
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", (req, res) => {
   try {
     getUser(req, res);
   } catch (err) {
@@ -65,9 +55,33 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// Get all accounts
+router.put("/users/:id", (req, res) => {
+  try {
+    putUser(req, res);
+  } catch (err) {
+    console.error(err.message)
+  }
+});
 
-router.get("/accounts", async (req, res) => {
+router.delete("/users/:id", (req,res) => {
+  try {
+    deleteUser(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// Account Routes
+
+router.post("/account", (req, res) => {
+  try {
+    postAccount(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+router.get("/accounts", (req, res) => {
   try {
     getAccounts(req, res);
   } catch (err) {
@@ -75,9 +89,7 @@ router.get("/accounts", async (req, res) => {
   }
 });
 
-// Get a account
-
-router.get("/accounts/:id", async (req, res) => {
+router.get("/accounts/:id", (req, res) => {
   try {
     getAccount(req, res);
   } catch (err) {
@@ -85,9 +97,33 @@ router.get("/accounts/:id", async (req, res) => {
   }
 });
 
-// Get all activities
+router.put("/accounts/:id", (req,res) => {
+  try {
+    putAccount(req, res);
+  } catch (err) {
+    console.error(err.message)
+  }
+})
 
-router.get("/activities", async (req, res) => {
+router.delete("/accounts/:id", (req,res) => {
+  try {
+    deleteAccount(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+})
+
+// Activities Routes
+
+router.post("/activity", (req, res) => {
+  try {
+    postActivity(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+router.get("/activities", (req, res) => {
   try {
     getActivities(req, res);
   } catch (err) {
@@ -95,9 +131,7 @@ router.get("/activities", async (req, res) => {
   }
 });
 
-// Get a activity
-
-router.get("/activities/:id", async (req, res) => {
+router.get("/activities/:id", (req, res) => {
   try {
     getActivity(req, res);
   } catch (err) {
@@ -105,7 +139,20 @@ router.get("/activities/:id", async (req, res) => {
   }
 });
 
-// Put User
+router.put("/activities/:id", (req,res) => {
+  try {
+    putActivity(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
+router.delete("/activities/:id", (req, res) => {
+  try {
+    deleteActivity(req, res);
+  } catch (err) {
+    console.error(err.message);
+  }
+})
 
 module.exports = router;
