@@ -1,0 +1,18 @@
+{
+  "name": "to_do_application",
+  "version": "0.1.0",
+  "description": "A cross-platform application of activities to do on a daily basis.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Lucas García Bertaina",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
